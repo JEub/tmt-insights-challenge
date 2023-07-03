@@ -6,3 +6,10 @@ ANSWER.md
 *.env
 *reset_database.sh
 *.venv*
+
+# adding environment folders to ignore
+venv/
+__pycache__/
+
+# Ignoring optimization files
+*.py[cod]
