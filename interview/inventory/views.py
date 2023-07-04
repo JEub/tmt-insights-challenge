@@ -5,11 +5,13 @@ from rest_framework.views import APIView
 from interview.inventory.models import Inventory, InventoryLanguage, InventoryTag, InventoryType
 from interview.inventory.schemas import InventoryMetaData
 from interview.inventory.serializers import InventoryLanguageSerializer, InventorySerializer, InventoryTagSerializer, InventoryTypeSerializer
+from interview.inventory.admin import LimitOffsetPagination
 
 
 class InventoryListCreateView(APIView):
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
+    pagination_class = LimitOffsetPagination
     
     def post(self, request: Request, *args, **kwargs) -> Response:
         try:
