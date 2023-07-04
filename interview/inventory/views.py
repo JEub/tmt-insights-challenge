@@ -228,7 +228,7 @@ class InventoryListAfterDateView(APIView):
 
     def get(self, request: Request, *args, **kwargs) -> Response:
 
-        inventory = Inventory.objects.filter(inventory__metadata > kwargs["crated_after"])
+        inventory = Inventory.objects.filter(metadata__year > kwargs["crated_after"])
         serializer = self.serializer_class(inventory)
 
         return Response(serializer.data, status=200)
