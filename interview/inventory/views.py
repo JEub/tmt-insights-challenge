@@ -28,10 +28,11 @@ class InventoryListCreateView(APIView):
     
     def get(self, request: Request, *args, **kwargs) -> Response:
         serializer = self.serializer_class(self.get_queryset(), many=True)
-        
+
         return Response(serializer.data, status=200)
     
     def get_queryset(self):
+        
         return self.queryset.all()
     
 
@@ -219,3 +220,15 @@ class InventoryTypeRetrieveUpdateDestroyView(APIView):
     
     def get_queryset(self, **kwargs):
         return self.queryset.get(**kwargs)
+    
+
+class InventoryListAfterDateView(APIView):
+
+    serializer_class = InventorySerializer
+
+    def get(self, request: Request, *args, **kwargs) -> Response:
+
+        inventory = Inventory.objects.filter(inventory__metadata > kwargs["crated_after"])
+        serializer = self.serializer_class(inventory)
+
+        return Response(serializer.data, status=200)
